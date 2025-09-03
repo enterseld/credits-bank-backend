@@ -21,5 +21,5 @@ const creditSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Credit = mongoose.model("User", userSchema);
+const Credit = mongoose.model("Credit", creditSchema);
 export default Credit;

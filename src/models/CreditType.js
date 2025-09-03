@@ -19,5 +19,5 @@ const creditTypeSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const CreditType = mongoose.model("User", userSchema);
+const CreditType = mongoose.model("CreditType", creditTypeSchema);
 export default CreditType;
