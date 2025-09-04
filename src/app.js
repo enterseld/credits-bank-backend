@@ -1,10 +1,14 @@
 import express from "express"
 import dotenv from "dotenv"
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "../swagger-output.json" assert { type: "json" };
+
 //import userRoutes from "./routes/userRoutes.js"
 import { authMiddleware } from "./middleware/authMiddlware.js"
 import { login, register } from "./controllers/authController.js"
 import { addCredit, deleteCredit, getAllByUser, updateCredit } from "./controllers/creditsController.js"
 import { addCreditType } from "./controllers/creditTypesController.js"
+import { getUser, updateUserProfile } from "./controllers/usersController.js";
 
 dotenv.config()
 
@@ -22,10 +26,11 @@ router.delete("/credit", authMiddleware, deleteCredit);
 
 router.post("/credit-type", addCreditType);
 
-router.get("/profile", authMiddleware, (req, res) => {
-    res.json({message: "Protected route", userId: req.user.id})
-})
+router.get("/profile", authMiddleware, getUser)
+router.patch("/profile", authMiddleware, updateUserProfile)
 
 app.use("/api", router);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 export default app;
