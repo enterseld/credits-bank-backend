@@ -45,6 +45,9 @@ export const updateCredit = async (req, res) => {
         }
         credit.currentAmount = credit.currentAmount - newAmount;
         await credit.save();
+        if(credit.currentAmount <= 0){
+            await Credit.findByIdAndDelete(creditId);
+        }
         res.status(201).json({message: "credit updated", credit: credit._id})
     }catch(err){
         res.status(500).json({error: err.message});
