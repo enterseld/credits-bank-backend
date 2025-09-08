@@ -29,7 +29,7 @@ export const createByConditions = async (req, res) => {
         
         if (creditType) return res.status(201).json({ message: "Credit type found", creditType: creditType._id });
         const newCreditType = await CreditType.create({
-            name: conditions + term,
+            name: `${conditions} for ${term}`,
             conditions: conditions,
             interestRate: interestRate,
             term: term
